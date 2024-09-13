@@ -12,7 +12,9 @@
 .swiper-button-prev,
 .swiper-button-next,
 .swiper-pagination,
-.swiper-pagination-cat {
+.swiper-pagination-cat,
+.swiper-pagination-latestProduct,
+.swiper-pagination-phone {
   top: unset !important;
   left: unset !important;
   bottom: unset !important;

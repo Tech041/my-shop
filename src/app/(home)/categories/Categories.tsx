@@ -18,17 +18,17 @@ const categories = [
     img: "https://youngking-mikeshop.onrender.com/assets/cat-watch-20e964a5.jpg",
   },
   {
-    id: 1,
+    id: 2,
     category: "Phones",
     img: "https://youngking-mikeshop.onrender.com/assets/cat-phone-59be5b83.png",
   },
   {
-    id: 1,
+    id: 3,
     category: "Laptops",
     img: "https://youngking-mikeshop.onrender.com/assets/cat-laptop-b52fffe2.jpg",
   },
   {
-    id: 1,
+    id: 4,
     category: "Headphones",
     img: "https://youngking-mikeshop.onrender.com/assets/cat-headphone-0f969809.jpg",
   },
@@ -62,11 +62,7 @@ const Categories = () => {
             >
               {categories.map((cat) => (
                 <SwiperSlide key={cat.id}>
-                  <Category
-                    key={cat.id}
-                    category={cat.category}
-                    img={cat.img}
-                  />
+                  <Category category={cat.category} img={cat.img} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -74,11 +70,11 @@ const Categories = () => {
               <div className="swiper-pagination-cat"></div>
             </div>
             <div className=" absolute top-0 left-0 z-20 w-full h-full flex items-center justify-between ">
-              <div className="swiper-button-prev-cat">
+              <div className="swiper-button-prev-cat cursor-pointer">
                 <IoIosArrowBack size={20} />
               </div>
 
-              <div className="swiper-button-next-cat">
+              <div className="swiper-button-next-cat cursor-pointer">
                 <MdOutlineNavigateNext size={25} />
               </div>
             </div>

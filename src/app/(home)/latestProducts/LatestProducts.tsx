@@ -1,6 +1,17 @@
+"use client";
 import Container from "@/components/container/Container";
 import Product from "@/components/product/Product";
 import React from "react";
+
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { IoIosArrowBack } from "react-icons/io";
+import { MdOutlineNavigateNext } from "react-icons/md";
+
 const products = [
   {
     id: 1,
@@ -50,10 +61,48 @@ const LatestProducts = () => {
       <Container>
         <div className="">
           <h2 className="text-3xl mb-2 capitalize">Latest Products</h2>
-          <div className=" flex justify-between items-center">
-            {products.map((item) => (
-              <Product key={item.id} item={item} />
-            ))}
+          <div className="relative">
+            <Swiper
+              // install Swiper modules
+              modules={[Navigation, Pagination]}
+              spaceBetween={20}
+              slidesPerView={1}
+              navigation={{
+                nextEl: ".swiper-button-next-latestProduct",
+                prevEl: ".swiper-button-prev-latestProduct",
+              }}
+              pagination={{
+                el: ".swiper-pagination-latestProduct",
+                type: "bullets",
+              }}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                },
+
+                1200: {
+                  slidesPerView: 4,
+                },
+              }}
+            >
+              {products.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <Product item={item} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="flex justify-center">
+              <div className="swiper-pagination-latestProduct"></div>
+            </div>
+            <div className=" absolute top-0 left-0 z-20 w-full h-full flex items-center justify-between ">
+              <div className="swiper-button-prev-latestProduct cursor-pointer ml-[-20px]">
+                <IoIosArrowBack size={20} />
+              </div>
+
+              <div className="swiper-button-next-latestProduct cursor-pointer mr-[-20px]">
+                <MdOutlineNavigateNext size={25} />
+              </div>
+            </div>
           </div>
         </div>
       </Container>
