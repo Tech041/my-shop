@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Button from "../button/Button";
 import { IItem } from "@/types";
+import Link from "next/link";
 
 interface ProductProps {
   item: IItem;
@@ -26,9 +27,11 @@ const Product = ({ item, showButton, objectCover }: ProductProps) => {
         </div>
         <span className="opacity-90 line-clamp-1 px-3">{item.desc}</span>
         <div className="flex justify-between gap-2 mt-2 px-3">
-          <Button type="primary" size="small">
-            More Details
-          </Button>
+          <Link href={`/products/${item.id}`}>
+            <Button type="primary" size="small">
+              More Details
+            </Button>
+          </Link>
           {showButton && (
             <Button type="neutral" size="small">
               Add To Cart
