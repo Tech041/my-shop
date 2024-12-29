@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import Counter from "../counter/Counter";
+import Counter from "../../../../components/counter/Counter";
+import Button from "@/components/button/Button";
 const heading = "font-bold capitalize";
 const colorList = ["Blue", "Silver"];
 const ProductInfo = () => {
