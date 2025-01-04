@@ -4,65 +4,31 @@ import Container from "@/components/container/Container";
 import Image from "next/image";
 import React, { useState } from "react";
 import RegisterIcon from "./RegisterIcon";
+import * as z from "zod";
 
 const inputWrapper = "flex flex-col gap-2";
 const inputStyle = "border-b-2 outline-none focus-visible:border-b-black";
 const errorStyle = "text-sm text-red-500";
+const schema = z
+  .object({
+    name: z.string().min(1, { message: "Name is required!" }),
+    email: z
+      .string()
+      .email("Not a valid email address")
+      .min(1, { message: "Email is required!" }),
+    password: z
+      .string()
+      .min(6, { message: "Password must be atleast 6 characters!" }),
+    confirmPassword: z.string().min(6, { message: "Enter Password again!" }),
+    phone: z.string().min(1, { message: "Enter your number" }),
+    address: z.string().min(1, { message: "Home address is required!" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password does not match",
+    path: ["confirmPassword"],
+  });
 
 const Register = () => {
-  const errors = [];
-
-  // State for handling inputs
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-
-  // State for input error messages
-  const [nameError, setNameError] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
-  const [addressError, setAddressError] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name) {
-      setNameError("Name is required");
-      errors.push("Name is required");
-    }
-
-    if (!email) {
-      setEmailError("Email is required");
-      errors.push("Email is required");
-    }
-    if (!password) {
-      setPasswordError("Password is required");
-      errors.push("Password is required");
-    }
-    if (!confirmPassword) {
-      setConfirmPasswordError("Enter Password again");
-      errors.push("Enter Password again");
-    }
-    if (!phone) {
-      setPhoneError("Phone number is required");
-      errors.push("Phone number is required");
-    }
-    if (!address) {
-      setAddressError("Home address is required");
-      errors.push("Home address is required");
-    }
-    
-    if(errors.length > 0){
-      return
-    }
-    //Submitting data to the server
-    console.log("Submitting data to the backend ....");
-    
-  };
   return (
     // Added pt-10 and md:pt-0
     <main className="bg-secondary-400 pt-10 md:pt-0">
@@ -79,7 +45,7 @@ const Register = () => {
               </div>
             </div>
             <div className=" flex-[3] ">
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <form className="flex flex-col gap-5">
                 {/* Added pt-5 and md:pt-0 */}
                 <h1 className="text-2xl md:text-4xl font-bold text-center pt-5 md:pt-0 ">
                   Register <span className="text-accent-500">here</span>
@@ -87,66 +53,44 @@ const Register = () => {
                 <div className={inputWrapper}>
                   <input
                     type="text"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
                     placeholder="Enter your name"
                     className={inputStyle}
                   />
-                  {nameError && <p className={errorStyle}>{nameError}</p>}
                 </div>
                 <div className={inputWrapper}>
                   <input
                     type="text"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
                     placeholder="Enter your email"
                     className={inputStyle}
                   />
-                  {emailError && <p className={errorStyle}>{emailError}</p>}{" "}
                 </div>
                 <div className={inputWrapper}>
                   <input
                     type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
                     placeholder="Enter your Password"
                     className={inputStyle}
                   />
-                  {passwordError && (
-                    <p className={errorStyle}>{passwordError}</p>
-                  )}
                 </div>
                 <div className={inputWrapper}>
                   <input
                     type="password"
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    value={confirmPassword}
                     placeholder="Confirm Password"
                     className={inputStyle}
                   />
-                  {confirmPasswordError && (
-                    <p className={errorStyle}>{confirmPasswordError}</p>
-                  )}
                 </div>
                 <div className={inputWrapper}>
                   <input
                     type="tel"
-                    onChange={(e) => setPhone(e.target.value)}
-                    value={phone}
                     placeholder="Enter your phone"
                     className={inputStyle}
                   />
-                  {phoneError && <p className={errorStyle}>{phoneError}</p>}
                 </div>
                 <div className={inputWrapper}>
                   <input
                     type="text"
-                    onChange={(e) => setAddress(e.target.value)}
-                    value={address}
                     placeholder="Enter your address"
                     className={inputStyle}
                   />
-                  {addressError && <p className={errorStyle}>{addressError}</p>}
                 </div>
                 <div>
                   {" "}
